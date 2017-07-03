@@ -15,5 +15,12 @@ def index():
 	rv = cur.fetchall()
 	return str(rv)
 
+@app.route('/addone/<string:insert>')
+def add(insert):
+	cur = mysql.connection.cursor()
+	cur.execute('''INSERT into example(data) VALUES(%s)''', (insert,))
+	mysql.connection.commit()
+	return "Done"
+
 if __name__ == '__main__':
-	 app.run(debug=True)
+	app.run(debug=True)
