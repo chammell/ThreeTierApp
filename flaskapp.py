@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_mysqldb import MySQL
 
 app = Flask(__name__)
@@ -14,6 +14,10 @@ def index():
 	cur.execute('''SELECT data FROM example WHERE id = 1''')
 	rv = cur.fetchall()
 	return str(rv)
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+	return render_template('example.html')
 
 @app.route('/addone/<string:insert>')
 def add(insert):
