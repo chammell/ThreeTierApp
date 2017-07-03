@@ -22,5 +22,12 @@ def add(insert):
 	mysql.connection.commit()
 	return "Done"
 
+@app.route("/getlast")
+def getlast():
+	cur = mysql.connection.cursor()
+	cur.execute('''SELECT * FROM example ORDER BY ID DESC LIMIT 1''')
+	rv = cur.fetchall()
+	return str(rv)
+
 if __name__ == '__main__':
 	app.run(debug=True)
