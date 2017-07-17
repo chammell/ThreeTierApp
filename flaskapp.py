@@ -19,7 +19,7 @@ def index():
 def home():
 	return render_template('example.html')
 
-@app.route('/addone/<string:insert>')
+@app.route('/addone/<string:insert>', methods=['GET', 'POST'])
 def add(insert):
 	cur = mysql.connection.cursor()
 	cur.execute('''INSERT into example(data) VALUES(%s)''', (insert,))
