@@ -1,0 +1,24 @@
+#!/bin/bash
+sudo apt-get -y update
+sudo apt-get install apache2 -y
+sudo apt-get install libapache2-mod-wsgi -y
+sudo update-rc.d apache2 defaults
+sudo apt install awscli -y
+sudo aws s3 cp s3://ace56-website-bucket /var/www/html --recursive
+sudo apt-get install python-pip -y
+sudo pip install flask
+sudo pip install requests
+
+mkdir /home/ubuntu/flaskapp
+sudo ln -sT /home/ubuntu/flaskapp /var/www/html/flaskapp
+echo "Hello from flaskapp!" > /home/ubuntu/flaskapp/index.html
+
+sudo apt-get -y install git
+cd /home/ubuntu/flaskapp
+git clone https://github.com/chammell/ThreeTierUI
+cd ThreeTierUI
+cp 000-default.conf /etc/apache2/sites-available/.
+sudo apachectl restart
+
+cp flaskapp.* ..
+cp -r templates ../
