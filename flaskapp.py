@@ -33,5 +33,12 @@ def getlast():
 	rv = cur.fetchall()
 	return str(rv)
 
+@app.route("/getten")
+def getten():
+	cur = mysql.connection.cursor()
+	cur.execute('''SELECT * FROM example ORDER BY ID DESC LIMIT 10''')
+	rv = cur.fetchall()
+	return str(rv)
+
 if __name__ == '__main__':
 	app.run(debug=True)
